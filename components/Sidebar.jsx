@@ -29,6 +29,24 @@ function Sidebar() {
         <SidebarLink text="Profile" Icon={UserIcon} />
         <SidebarLink text="More" Icon={DotsCircleHorizontalIcon} />
       </div>
+
+      <button className="hidden xl:inline bg-[#1d9bf0] ml-auto text-white rounded-full w-56 h-[52px] font-bold text-lg hover:bg-[#1a8cd8">
+        Tweet
+      </button>
+
+      <div className=" text-[#d9d9d9] flex items-center justify-center hoverAnimation xl:ml-auto xl:-mr-5 mt-auto">
+        <img
+          src="https://avatars.githubusercontent.com/u/67508976?v=4"
+          className="h-10 w-10 rounded-full xl:mr-2.5"
+          alt=""
+        />
+
+        <div>
+          <h4 className="font-bold">Sefatullah Omar</h4>
+          <p className="text-[#6e767d">@osefatul</p>
+        </div>
+        <DotsHorizontalIcon className="h-5 hidden xl:inline ml-10" />
+      </div>
     </div>
   );
 }
