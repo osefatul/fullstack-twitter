@@ -30,20 +30,18 @@ function Sidebar() {
         <SidebarLink text="More" Icon={DotsCircleHorizontalIcon} />
       </div>
 
-      <button className="hidden xl:inline bg-[#1d9bf0] ml-auto text-white rounded-full w-56 h-[52px] font-bold text-lg hover:bg-[#1a8cd8">
+      <button className="hidden xl:inline ml-auto bg-[#1d9bf0] text-white rounded-full w-56 h-[52px] text-lg font-bold shadow-md hover:bg-[#1a8cd8]">
         Tweet
       </button>
-
-      <div className=" text-[#d9d9d9] flex items-center justify-center hoverAnimation xl:ml-auto xl:-mr-5 mt-auto">
+      <div className="text-[#d9d9d9] flex items-center justify-center mt-auto hoverAnimation xl:ml-auto xl:-mr-5">
         <img
-          src="https://avatars.githubusercontent.com/u/67508976?v=4"
-          className="h-10 w-10 rounded-full xl:mr-2.5"
+          src="https://avatars.githubusercontent.com/u/67508976?v=4s"
           alt=""
+          className="h-10 w-10 rounded-full xl:mr-2.5"
         />
-
-        <div>
+        <div className="hidden xl:inline leading-5">
           <h4 className="font-bold">Sefatullah Omar</h4>
-          <p className="text-[#6e767d">@osefatul</p>
+          <p className="text-[#6e767d]">@osefatul</p>
         </div>
         <DotsHorizontalIcon className="h-5 hidden xl:inline ml-10" />
       </div>
