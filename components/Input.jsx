@@ -1,8 +1,18 @@
-import React, { useState } from "react";
+import {
+  CalendarIcon,
+  ChartBarIcon,
+  EmojiHappyIcon,
+  PhotographIcon,
+  XIcon,
+} from "@heroicons/react/outline";
+import React, { useRef, useState } from "react";
 
 function Input() {
   const [input, setInput] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+  const filePickerRef = useRef(null);
+
+  const addImageToPost = {};
 
   return (
     <div className="border-b border-gray-700 p-3 flex space-x-3 overflow-y-scroll scrollbar-hide">
@@ -37,6 +47,20 @@ function Input() {
               />
             </div>
           )}
+        </div>
+
+        <div className="flex items-center justify-between pt-2.5">
+          <div className="flex items-center">
+            <div className="icon" onClick={() => filePickerRef.current.click()}>
+              <PhotographIcon className="text-[#1d9bf0] h-[22px]" />
+              <input
+                type="file"
+                ref={filePickerRef}
+                hidden
+                onChange={addImageToPost}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
