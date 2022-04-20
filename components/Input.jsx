@@ -13,9 +13,16 @@ function Input() {
   const [input, setInput] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [showEmojis, setShowEmojis] = useState(false);
+  const [loading, setLoading] = useState(false);
   const filePickerRef = useRef(null);
 
-  const addImageToPost = {};
+  const sendPost = async () => {
+    if (loading) return;
+    setLoading(true);
+
+    const docRef = await addDoc(collection(db));
+  };
+  const addImageToPost = () => {};
 
   // Emoji library
   const addEmoji = (e) => {
