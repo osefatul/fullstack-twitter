@@ -20,13 +20,13 @@ function Input() {
     if (loading) return;
     setLoading(true);
 
-    const docRef = await addDoc(collection(db){
+    const docRef = await addDoc(collection(db, "post"), {
       id: session.user.uid,
-      username:session.user.name,
+      username: session.user.name,
       userImg: session.user.image,
-      tag:session.user.tag,
-      text:input,
-      timestamp:serverTimestamp()
+      tag: session.user.tag,
+      text: input,
+      timestamp: serverTimestamp(),
     });
   };
   const addImageToPost = () => {};
