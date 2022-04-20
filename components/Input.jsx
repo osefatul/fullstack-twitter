@@ -19,18 +19,17 @@ import { getDownloadURL, ref, uploadString } from "@firebase/storage";
 import { db, storage } from "../firebase";
 function Input() {
   const [input, setInput] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [showEmojis, setShowEmojis] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
   const filePickerRef = useRef(null);
+  const [showEmojis, setShowEmojis] = useState(false);
 
   //POST A TWEET
   const sendPost = async () => {
     if (loading) return;
     setLoading(true);
 
-    // Inside of my firestore I want to create a document with the collection of posts
-
+    // Inside of my firestore I want to create a document with the collection named "posts"
     const docRef = await addDoc(collection(db, "posts"), {
       // id: session.user.uid,
       // username: session.user.name,
@@ -60,18 +59,21 @@ function Input() {
     setShowEmojis(false);
   };
 
+  //LETs REACT/JS READ THE CONTENT(RAW DATA) OF OUR IMAGE FROM OUR COMPUTER
   const addImageToPost = (e) => {
     const reader = new FileReader();
     if (e.target.files[0]) {
-      reader.readAsDataURL(e.target.files[0]);
+      reader.readAsDataURL(e.target.files[0]); //read the binary data and encode it as base64 data url.
     }
 
+    //once reading the image is finished then we can access the result.
     reader.onload = (readerEvent) => {
       setSelectedFile(readerEvent.target.result);
     };
   };
 
   // Emoji library
+
   const addEmoji = (e) => {
     let sym = e.unified.split("-");
     let codesArray = [];
@@ -81,21 +83,24 @@ function Input() {
   };
 
   return (
-    <div className="border-b border-gray-700 p-3 flex space-x-3 overflow-y-scroll scrollbar-hide">
+    <div
+      className={`border-b border-gray-700 p-3 flex space-x-3 overflow-y-scroll scrollbar-hide ${
+        loading && "opacity-60"
+      }`}
+    >
       <img
         src="https://avatars.githubusercontent.com/u/67508976?v=4s"
         alt=""
         className="h-11 w-11 rounded-full xl:mr-2.5 cursor-pointer"
       />
-
-      <div className="divide-y divide-gray-800 w-full">
-        <div>
+      <div className="divide-y divide-gray-700 w-full">
+        <div className={`${selectedFile && "pb-7"} ${input && "space-y-2.5"}`}>
           <textarea
-            className="bg-transparent outline-none text-[#d9d9d9] text-lg placeholder-gray-500 tracking-wide w-full min-h-[50px]"
-            placeholder="What's happening?"
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            placeholder="What's happening?"
             rows="2"
+            className="bg-transparent outline-none text-[#d9d9d9] text-lg placeholder-gray-500 tracking-wide w-full min-h-[50px]"
           />
 
           {selectedFile && (
@@ -115,53 +120,59 @@ function Input() {
           )}
         </div>
 
-        <div className="flex items-center justify-between pt-2.5">
-          <div className="flex items-center">
-            <div className="icon" onClick={() => filePickerRef.current.click()}>
-              <PhotographIcon className="text-[#1d9bf0] h-[22px]" />
-              <input
-                type="file"
-                ref={filePickerRef}
-                hidden
-                onChange={addImageToPost}
-              />
+        {/* If nothing is loading then show the below input design */}
+        {!loading && (
+          <div className="flex items-center justify-between pt-2.5">
+            <div className="flex items-center">
+              <div
+                className="icon"
+                onClick={() => filePickerRef.current.click()}
+              >
+                <PhotographIcon className="text-[#1d9bf0] h-[22px]" />
+                <input
+                  type="file"
+                  ref={filePickerRef}
+                  hidden
+                  onChange={addImageToPost}
+                />
+              </div>
+
+              <div className="icon rotate-90">
+                <ChartBarIcon className="text-[#1d9bf0] h-[22px]" />
+              </div>
+
+              <div className="icon" onClick={() => setShowEmojis(!showEmojis)}>
+                <EmojiHappyIcon className="text-[#1d9bf0] h-[22px]" />
+              </div>
+
+              <div className="icon">
+                <CalendarIcon className="text-[#1d9bf0] h-[22px]" />
+              </div>
+
+              {showEmojis && (
+                <Picker
+                  onSelect={addEmoji}
+                  style={{
+                    position: "absolute",
+                    marginTop: "465px",
+                    marginLeft: -40,
+                    maxWidth: "320px",
+                    borderRadius: "20px",
+                  }}
+                  theme="dark"
+                />
+              )}
             </div>
 
-            <div className="icon rotate-90">
-              <ChartBarIcon className="text-[#1d9bf0] h-[22px]" />
-            </div>
-
-            <div className="icon" onClick={() => setShowEmojis(!showEmojis)}>
-              <EmojiHappyIcon className="text-[#1d9bf0] h-[22px]" />
-            </div>
-
-            <div className="icon">
-              <CalendarIcon className="text-[#1d9bf0] h-[22px]" />
-            </div>
-
-            {showEmojis && (
-              <Picker
-                onSelect={addEmoji}
-                style={{
-                  position: "absolute",
-                  marginTop: "465px",
-                  marginLeft: -40,
-                  maxWidth: "320px",
-                  borderRadius: "20px",
-                }}
-                theme="dark"
-              />
-            )}
+            <button
+              className="bg-[#1d9bf0] text-white rounded-full px-4 py-1.5 font-bold shadow-md hover:bg-[#1a8cd8] disabled:hover:bg-[#1d9bf0] disabled:opacity-50 disabled:cursor-default"
+              disabled={!input.trim() && !selectedFile} //trim will not allow a whitespace get enabled a tweet button.
+              onClick={sendPost}
+            >
+              Tweet
+            </button>
           </div>
-
-          <button
-            className="bg-[#1d9bf0] text-white rounded-full px-4 py-1.5 font-bold shadow-md hover:bg-[#1a8cd8] disabled:hover:bg-[#1d9bf0] disabled:opacity-50 disabled:cursor-default"
-            disabled={!input.trim() && !selectedFile} //trim will not allow a whitespace get enabled a tweet button.
-            // onClick={sendPost}
-          >
-            Tweet
-          </button>
-        </div>
+        )}
       </div>
     </div>
   );
