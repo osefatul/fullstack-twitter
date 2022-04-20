@@ -102,7 +102,7 @@ function Input() {
 
           <button
             className="bg-[#1d9bf0] text-white rounded-full px-4 py-1.5 font-bold shadow-md hover:bg-[#1a8cd8] disabled:hover:bg-[#1d9bf0] disabled:opacity-50 disabled:cursor-default"
-            disabled={!input && !selectedFile}
+            disabled={!input.trim() && !selectedFile} //trim will not allow a whitespace get enabled a tweet button.
             // onClick={sendPost}
           >
             Tweet
