@@ -28,6 +28,8 @@ function Input() {
       text: input,
       timestamp: serverTimestamp(),
     });
+
+    const imageRef = ref(storage, `posts/${docRef.id}/image`);
   };
   const addImageToPost = () => {};
 
