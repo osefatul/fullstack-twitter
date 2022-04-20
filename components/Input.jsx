@@ -8,7 +8,15 @@ import {
 import React, { useRef, useState } from "react";
 import { Picker } from "emoji-mart";
 import "emoji-mart/css/emoji-mart.css";
-
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "@firebase/firestore";
+import { getDownloadURL, ref, uploadString } from "@firebase/storage";
+import { db, storage } from "../firebase";
 function Input() {
   const [input, setInput] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
@@ -16,22 +24,52 @@ function Input() {
   const [loading, setLoading] = useState(false);
   const filePickerRef = useRef(null);
 
+  //POST A TWEET
   const sendPost = async () => {
     if (loading) return;
     setLoading(true);
 
-    const docRef = await addDoc(collection(db, "post"), {
-      id: session.user.uid,
-      username: session.user.name,
-      userImg: session.user.image,
-      tag: session.user.tag,
+    // Inside of my firestore I want to create a document with the collection of posts
+
+    const docRef = await addDoc(collection(db, "posts"), {
+      // id: session.user.uid,
+      // username: session.user.name,
+      // userImg: session.user.image,
+      // tag: session.user.tag,
       text: input,
       timestamp: serverTimestamp(),
     });
 
+    //create an image reference in the storage.
     const imageRef = ref(storage, `posts/${docRef.id}/image`);
+
+    if (selectedFile) {
+      // upload the image with the given reference
+      await uploadString(imageRef, selectedFile, "data_url").then(async () => {
+        const downloadURL = await getDownloadURL(imageRef); //return the URL that has been created for the image.
+        //update the post image with the URL
+        await updateDoc(doc(db, "posts", docRef.id), {
+          image: downloadURL,
+        });
+      });
+    }
+
+    setLoading(false);
+    setInput("");
+    setSelectedFile(null);
+    setShowEmojis(false);
   };
-  const addImageToPost = () => {};
+
+  const addImageToPost = (e) => {
+    const reader = new FileReader();
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+    }
+
+    reader.onload = (readerEvent) => {
+      setSelectedFile(readerEvent.target.result);
+    };
+  };
 
   // Emoji library
   const addEmoji = (e) => {
