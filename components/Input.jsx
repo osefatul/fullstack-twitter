@@ -43,9 +43,10 @@ function Input() {
     const imageRef = ref(storage, `posts/${docRef.id}/image`);
 
     if (selectedFile) {
-      // upload the image with the given reference
+      // upload the image in the given reference
       await uploadString(imageRef, selectedFile, "data_url").then(async () => {
-        const downloadURL = await getDownloadURL(imageRef); //return the URL that has been created for the image.
+        //return the URL that has been created for the image.
+        const downloadURL = await getDownloadURL(imageRef);
         //update the post image with the URL
         await updateDoc(doc(db, "posts", docRef.id), {
           image: downloadURL,
