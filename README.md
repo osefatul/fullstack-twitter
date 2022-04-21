@@ -8,3 +8,7 @@
 - If we want to bring changes in one of the components and we can't do it with the help of tailwind alone we can use a class then define the css fo the that class in the component layer in the global.css. look at the below example we used for hoverAnimation in the sidebar.
 
 `@layer components { .hoverAnimation { @apply hover:bg-[#d9d9d9] hover:bg-opacity-10 rounded-full cursor-pointer w-[52px] xl:w-auto xl:h-auto xl:py-3 xl:px-4 transition duration-200 ease-out } }`
+
+### NextAuth.js
+
+[install library](https://next-auth.js.org/getting-started/upgrade-v4)
