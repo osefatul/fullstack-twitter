@@ -14,3 +14,6 @@
 - [install library](https://next-auth.js.org/getting-started/upgrade-v4).
 
 - Got an error while showing providers in the login page. getProvider wouldn't show the providers details. found the issue in the [github](https://stackoverflow.com/questions/70050759/trying-to-configure-next-auth-signin-page-but-having-a-problem-with-getprovider). In the env.local file the NEXT_AUTH must be started with http not https.
+
+- To Enable google API authentication. go to
+  [Google Cloud Platform -> APIs & Services -> Credentials](https://console.cloud.google.com/apis/credentials?project=twitter-d0844) and then add "http://localhost:3000/api/auth/callback/google" to the web Application as the Authorized redirect URLs, and "http://localhost:3000" as the authorized javascript URL.
