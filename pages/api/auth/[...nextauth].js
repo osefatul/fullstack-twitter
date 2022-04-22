@@ -1,15 +1,23 @@
 import NextAuth from "next-auth";
-import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import { FirebaseAdapter } from "@next-auth/firebase-adapter";
+import { db } from "../../../firebase";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import * as firestoreFunctions from "firebase/firestore";
+
 export default NextAuth({
-  // Configure one or more authentication providers
+  // https://next-auth.js.org/providers/overview
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
     }),
-    // ...add more providers here
   ],
+  adapter: FirebaseAdapter({
+    db: db,
+    ...firestoreFunctions,
+  }),
 
   // For example, to pass a value from the sign-in to the frontend, client-side, you can use a combination of the session and jwt callback like so:
 
