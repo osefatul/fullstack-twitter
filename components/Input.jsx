@@ -17,7 +17,9 @@ import {
 } from "@firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "@firebase/storage";
 import { db, storage } from "../firebase";
+import { useSession } from "next-auth/react";
 function Input() {
+  const { data: session } = useSession();
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -31,10 +33,10 @@ function Input() {
 
     // Inside of my firestore I want to create a document with the collection named "posts"
     const docRef = await addDoc(collection(db, "posts"), {
-      // id: session.user.uid,
-      // username: session.user.name,
-      // userImg: session.user.image,
-      // tag: session.user.tag,
+      id: session.user.uid,
+      username: session.user.name,
+      userImg: session.user.image,
+      tag: session.user.tag,
       text: input,
       timestamp: serverTimestamp(),
     });
@@ -90,7 +92,7 @@ function Input() {
       }`}
     >
       <img
-        src="https://avatars.githubusercontent.com/u/67508976?v=4s"
+        src={session.user.image}
         alt=""
         className="h-11 w-11 rounded-full xl:mr-2.5 cursor-pointer"
       />

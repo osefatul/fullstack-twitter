@@ -14,15 +14,16 @@ export default NextAuth({
       clientSecret: process.env.GOOGLE_SECRET,
     }),
   ],
-  adapter: FirebaseAdapter({
-    db: db,
-    ...firestoreFunctions,
-  }),
+  // adapter: FirebaseAdapter({
+  //   db: db,
+  //   ...firestoreFunctions,
+  // }),
 
   // For example, to pass a value from the sign-in to the frontend, client-side, you can use a combination of the session and jwt callback like so:
 
   callbacks: {
     async session({ session, token }) {
+      //This will be the username
       session.user.tag = session.user.name
         .split(" ")
         .join("")
