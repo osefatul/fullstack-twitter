@@ -76,7 +76,6 @@ function Input() {
   };
 
   // Emoji library
-
   const addEmoji = (e) => {
     let sym = e.unified.split("-");
     let codesArray = [];
