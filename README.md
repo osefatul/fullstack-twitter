@@ -17,3 +17,11 @@
 
 - To Enable google API authentication. go to
   [Google Cloud Platform -> APIs & Services -> Credentials](https://console.cloud.google.com/apis/credentials?project=twitter-d0844) and then add "http://localhost:3000/api/auth/callback/google" to the web Application as the Authorized redirect URLs, and "http://localhost:3000" as the authorized javascript URL.
+
+### Recoil
+
+We have used Recoil for state management instead of redux in this project.
+
+- create a folder called "atom". As in the redux we use slices however in this case we use atom
+
+- recoil's atom is much closer to using useState, wherase we can't use useState as a global state, but recoil yes we can.

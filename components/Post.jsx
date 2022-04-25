@@ -11,10 +11,13 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 
+import { modalState, postIdState } from "../atoms/modalAtom";
+import { useRecoilState } from "recoil";
+
 function Post({ id, post, postPage }) {
   const { data: session } = useSession();
-  // const [isOpen, setIsOpen] = useRecoilState(modalState);
-  // const [postId, setPostId] = useRecoilState(postIdState);
+  const [isOpen, setIsOpen] = useRecoilState(modalState);
+  const [postId, setPostId] = useRecoilState(postIdState);
   const [comments, setComments] = useState([]);
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
@@ -78,6 +81,7 @@ function Post({ id, post, postPage }) {
             postPage && "mx-auto"
           }`}
         >
+          {/* COMMENT ICON */}
           <div
             className="flex items-center space-x-1 group"
             onClick={(e) => {
@@ -96,6 +100,7 @@ function Post({ id, post, postPage }) {
             )}
           </div>
 
+          {/* Check if owner of the post is someone who logged in. */}
           {session.user.uid === post?.id ? (
             <div
               className="flex items-center space-x-1 group"
@@ -117,6 +122,7 @@ function Post({ id, post, postPage }) {
             </div>
           )}
 
+          {/* LIKE ICON */}
           <div
             className="flex items-center space-x-1 group"
             onClick={(e) => {
@@ -142,6 +148,7 @@ function Post({ id, post, postPage }) {
             )}
           </div>
 
+          {/* SHARE AND ANALYTIC ICONS */}
           <div className="icon group">
             <ShareIcon className="h-5 group-hover:text-[#1d9bf0]" />
           </div>
