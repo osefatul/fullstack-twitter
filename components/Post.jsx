@@ -7,12 +7,26 @@ import {
   SwitchHorizontalIcon,
   TrashIcon,
 } from "@heroicons/react/outline";
+import {
+  HeartIcon as HeartIconFilled,
+  ChatIcon as ChatIconFilled,
+} from "@heroicons/react/solid";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { modalState, postIdState } from "../atoms/modalAtom";
 import { useRecoilState } from "recoil";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  setDoc,
+} from "@firebase/firestore";
+import { db } from "../firebase";
 
 function Post({ id, post, postPage }) {
   const { data: session } = useSession();
@@ -23,6 +37,52 @@ function Post({ id, post, postPage }) {
   const [liked, setLiked] = useState(false);
   const router = useRouter();
   console.log("post", post);
+
+  //Fetch comments
+
+  useEffect(
+    () =>
+      onSnapshot(
+        query(
+          collection(db, "posts", id, "comments"),
+          orderBy("timestamp", "desc")
+        ),
+        (snapshot) => setComments(snapshot.docs)
+      ),
+    [db, id]
+  );
+
+  //Fetched likes from db -> posts -> post.id -> likes ->
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "posts", id, "likes"), (snapshot) =>
+        setLikes(snapshot.docs)
+      ),
+    [db, id]
+  );
+
+  //Change the liked state.
+  useEffect(
+    () =>
+      //find the index of like id and then check if it equals to the user who logged in. so if it equals to the condition it will set the like "true" otherwise false.
+      setLiked(
+        likes.findIndex((like) => like.id === session?.user?.uid) !== -1
+      ),
+    [likes]
+  );
+
+  const likePost = async () => {
+    if (liked) {
+      //If post is already liked then erase the like once the liked button is clicked.
+      await deleteDoc(doc(db, "posts", id, "likes", session.user.uid));
+    } else {
+      //count the like once the like button is clicked
+      await setDoc(doc(db, "posts", id, "likes", session.user.uid), {
+        username: session.user.name,
+      });
+    }
+  };
+
   return (
     // If we click on the post it will direct us to postPage.
     <div
@@ -105,13 +165,13 @@ function Post({ id, post, postPage }) {
             )}
           </div>
 
-          {/* Check if owner of the post is someone who logged in. */}
+          {/* Check if the owner of the post is someone who logged in. */}
           {session.user.uid === post?.id ? (
             <div
               className="flex items-center space-x-1 group"
               onClick={(e) => {
                 e.stopPropagation();
-                deleteDoc(doc(db, "posts", id));
+                deleteDoc(doc(db, "posts", id)); //in the db ->"posts" collection delete id.
                 router.push("/");
               }}
             >
