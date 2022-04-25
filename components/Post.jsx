@@ -24,7 +24,11 @@ function Post({ id, post, postPage }) {
   const router = useRouter();
   console.log("post", post);
   return (
-    <div className="p-3 flex cursor-pointer border-b border-gray-700">
+    // If we click on the post it will direct us to postPage.
+    <div
+      className="p-3 flex cursor-pointer border-b border-gray-700"
+      onClick={() => router.push(`/${id}`)}
+    >
       {!postPage && (
         <img
           src={post?.userImg}
@@ -85,6 +89,7 @@ function Post({ id, post, postPage }) {
           <div
             className="flex items-center space-x-1 group"
             onClick={(e) => {
+              //As we know if we click on the whole parent div it will direct up to a post page. Icons fall under that parent div. So, how do we stop the parent div event functionality and instead execute the element itself event functionality. - WE USE stopPropagation()
               e.stopPropagation();
               setPostId(id);
               setIsOpen(true);
