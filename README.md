@@ -25,3 +25,9 @@ We have used Recoil for state management instead of redux in this project.
 - create a folder called "atom". As in the redux we use slices however in this case we use atom
 
 - recoil's atom is much closer to using useState, wherase we can't use useState as a global state, but recoil yes we can.
+
+### Headless UI
+
+[Headless UI](https://headlessui.dev) is one of a UI styled components based library to integrate designs with tailwind css.
+
+We Used Headless UI for our comment modal.

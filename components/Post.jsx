@@ -39,7 +39,6 @@ function Post({ id, post, postPage }) {
   console.log("post", post);
 
   //Fetch comments
-
   useEffect(
     () =>
       onSnapshot(
@@ -52,7 +51,7 @@ function Post({ id, post, postPage }) {
     [db, id]
   );
 
-  //Fetched likes from db -> posts -> post.id -> likes ->
+  //Fetch likes from db -> posts -> post.id -> likes ->
   useEffect(
     () =>
       onSnapshot(collection(db, "posts", id, "likes"), (snapshot) =>
@@ -165,6 +164,7 @@ function Post({ id, post, postPage }) {
             )}
           </div>
 
+          {/* DELETE ICON */}
           {/* Check if the owner of the post is someone who logged in. */}
           {session.user.uid === post?.id ? (
             <div

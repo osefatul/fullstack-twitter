@@ -5,9 +5,13 @@ import Sidebar from "../components/Sidebar";
 import styles from "../styles/Home.module.css";
 import { getProviders, getSession, useSession } from "next-auth/react";
 import Login from "../components/Login";
+import Modal from "../components/Modal";
+import { modalState } from "../atoms/modalAtom";
+import { useRecoilState } from "recoil";
 
 export default function Home({ trendingResults, followResults, providers }) {
   const { data: session } = useSession();
+  const [isOpen, setIsOpen] = useRecoilState(modalState);
 
   if (!session) return <Login providers={providers} />;
   return (
@@ -22,6 +26,8 @@ export default function Home({ trendingResults, followResults, providers }) {
         {/* Feed */}
         <Feed />
         {/* Widget */}
+
+        {isOpen && <Modal />}
       </main>
     </div>
   );
