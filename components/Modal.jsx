@@ -29,6 +29,32 @@ function Modal() {
   const [comment, setComment] = useState("");
   const router = useRouter();
 
+  //Fetch Post
+  useEffect(
+    () =>
+      onSnapshot(doc(db, "posts", postId), (snapshot) => {
+        setPost(snapshot.data());
+      }),
+    [db]
+  );
+
+  const sendComment = async (e) => {
+    e.preventDefault();
+
+    await addDoc(collection(db, "posts", postId, "comments"), {
+      comment: comment,
+      username: session.user.name,
+      tag: session.user.tag,
+      userImg: session.user.image,
+      timestamp: serverTimestamp(),
+    });
+
+    setIsOpen(false);
+    setComment("");
+
+    router.push(`/${postId}`);
+  };
+
   return (
     <div className="h-screen w-screen top-0 right-0 left-0 z-50 fixed flex items-center justify-center bg-[#5b7083] bg-opacity-40 transition ease-out duration-300 ">
       <div className="inline-block align-bottom bg-black rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full">
@@ -76,6 +102,8 @@ function Modal() {
               />
               <div className="flex-grow mt-2">
                 <textarea
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
                   placeholder="Tweet your reply"
                   rows="2"
                   className="bg-transparent outline-none text-[#d9d9d9] text-lg placeholder-gray-500 tracking-wide w-full min-h-[80px]"
@@ -99,6 +127,14 @@ function Modal() {
                       <CalendarIcon className="text-[#1d9bf0] h-[22px]" />
                     </div>
                   </div>
+                  <button
+                    className="bg-[#1d9bf0] text-white rounded-full px-4 py-1.5 font-bold shadow-md hover:bg-[#1a8cd8] disabled:hover:bg-[#1d9bf0] disabled:opacity-50 disabled:cursor-default"
+                    type="submit"
+                    onClick={sendComment}
+                    disabled={!comment.trim()}
+                  >
+                    Reply
+                  </button>
                 </div>
               </div>
             </div>
