@@ -31,81 +31,6 @@ function Modal() {
 
   return (
     <div className="h-screen w-screen top-0 right-0 left-0 z-50 fixed flex items-center justify-center bg-[#5b7083] bg-opacity-40 transition ease-out duration-300 ">
-      {/* <div className="bg-white w-[36rem] h-[36rem] rounded-lg py-4 px-6 flex flex-col justify-between relative text-black transition ease-out duration-300 ">
-        <span
-          className="w-6 h-6 flex items-center justify-center cursor-pointer mb-5 absolute -top-2 -right-1 rounded-full bg-black text-white"
-          onClick={() => setIsOpen(false)}
-        >
-          X
-        </span>
-        <h1 className="text-black text-xl font-bold">Add a new Pizza</h1>
-
-        <div className="flex flex-col mb-3 text-black">
-          <label className="text-black font-bold" htmlFor="">
-            Title
-          </label>
-          <input className="border-b-2 border-gray" type="text" />
-        </div>
-
-        <div className="flex flex-col mb-3 text-black">
-          <label className="mb-1 text-black font-bold" htmlFor="">
-            Desc
-          </label>
-          <textarea className="border-2 border-gray" type="text" rows={4} />
-        </div>
-
-        <div className="flex flex-col mb-3 text-black">
-          <label className="mb-1 text-black font-bold" htmlFor="">
-            Prices
-          </label>
-          <div className="flex justify-between">
-            <input
-              className="border-b-2 border-gray w-[25%]"
-              type="number"
-              placeholder="Small"
-            />
-
-            <input
-              className="border-b-2 border-gray w-[25%]"
-              type="number"
-              placeholder="Medium"
-            />
-
-            <input
-              className="border-b-2 border-gray w-[25%]"
-              type="number"
-              placeholder="Large"
-            />
-          </div>
-        </div>
-
-        <div className="flex flex-col mb-3 text-black">
-          <label className="mb-1 text-black font-bold" htmlFor="">
-            Extra
-          </label>
-          <div className="flex justify-between mb-2">
-            <input
-              className="border-b-2 border-gray w-[25%]"
-              type="text"
-              placeholder="Item"
-              name="text"
-            />
-            <input
-              className="border-b-2 border-gray w-[25%]"
-              type="number"
-              placeholder="Price"
-              name="price"
-            />
-
-            <button className="border border-black rounded w-12">Add</button>
-          </div>
-        </div>
-
-        <button className=" p-1 rounded w-[25%] bg-[teal] text-white cursor-pointer fonto-bold self-end">
-          Create
-        </button>
-      </div> */}
-
       <div className="inline-block align-bottom bg-black rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full">
         <div className="flex items-center px-1.5 py-2 border-b border-gray-700">
           <div
@@ -150,13 +75,11 @@ function Modal() {
                 className="h-11 w-11 rounded-full"
               />
               <div className="flex-grow mt-2">
-                {/* <textarea
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
+                <textarea
                   placeholder="Tweet your reply"
                   rows="2"
                   className="bg-transparent outline-none text-[#d9d9d9] text-lg placeholder-gray-500 tracking-wide w-full min-h-[80px]"
-                /> */}
+                />
 
                 <div className="flex items-center justify-between pt-2.5">
                   <div className="flex items-center">
