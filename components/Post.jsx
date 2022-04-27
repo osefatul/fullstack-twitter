@@ -27,6 +27,7 @@ import {
   setDoc,
 } from "@firebase/firestore";
 import { db } from "../firebase";
+import Moment from "react-moment";
 
 function Post({ id, post, postPage }) {
   const { data: session } = useSession();
@@ -120,7 +121,10 @@ function Post({ id, post, postPage }) {
                 @{post?.tag}
               </span>
             </div>{" "}
-            . <span className="hover:underline text-sm sm:text-[15px]"></span>
+            .{" "}
+            <span className="hover:underline text-sm sm:text-[15px]">
+              <Moment fromNow>{post?.timestamp?.toDate()}</Moment>
+            </span>
             {!postPage && (
               <p className="text-[#d9d9d9] text-[15px] sm:text-base mt-0.5">
                 {post?.text}
@@ -147,11 +151,15 @@ function Post({ id, post, postPage }) {
           {/* COMMENT ICON */}
           <div
             className="flex items-center space-x-1 group"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
             onClick={(e) => {
               //As we know if we click on the whole parent div it will direct up to a post page. Icons fall under that parent div. So, how do we stop the parent div event functionality and instead execute the element itself event functionality. - WE USE stopPropagation()
               e.stopPropagation();
               setPostId(id);
               setIsOpen(true);
+              console.log(postId);
+              console.log(isOpen);
             }}
           >
             <div className="icon group-hover:bg-[#1d9bf0] group-hover:bg-opacity-10">
