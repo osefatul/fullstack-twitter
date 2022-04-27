@@ -11,6 +11,7 @@ import { useRecoilState } from "recoil";
 export default function Home({ trendingResults, followResults, providers }) {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useRecoilState(modalState);
+  isOpen && console.log("Modal is open ", isOpen);
 
   if (!session) return <Login providers={providers} />;
 
@@ -28,6 +29,7 @@ export default function Home({ trendingResults, followResults, providers }) {
           trendingResults={trendingResults}
           followResults={followResults}
         /> */}
+
         {isOpen && <Modal />}
       </main>
     </div>
