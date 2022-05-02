@@ -37,7 +37,7 @@ function PostPage({ trendingResults, followResults, providers }) {
       onSnapshot(doc(db, "posts", id), (snapshot) => {
         setPost(snapshot.data());
       }),
-    [db]
+    [db, id]
   );
 
   // Fetch and query comments on descending order
@@ -58,7 +58,7 @@ function PostPage({ trendingResults, followResults, providers }) {
     <div>
       <Head>
         <title>
-          {post?.username} on Twitter: "{post?.text}"
+          {post?.username} on Twitter: &quot;{post?.text}&quot;
         </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
