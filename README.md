@@ -31,3 +31,4 @@ We have used Recoil for state management instead of redux in this project.
 [Headless UI](https://headlessui.dev) is one of a UI styled components based library to integrate designs with tailwind css.
 
 We Used Headless UI for our comment modal.
+[update..]I removed headless UI and designed myslef a modal that was appropriate for our project.
