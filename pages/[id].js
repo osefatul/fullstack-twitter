@@ -18,7 +18,7 @@ import Sidebar from "../components/Sidebar";
 import Post from "../components/Post";
 import { db } from "../firebase";
 import { ArrowLeftIcon } from "@heroicons/react/solid";
-// import Comment from "../components/Comment";
+import Comment from "../components/Comment";
 import Head from "next/head";
 import Login from "../components/Login";
 
@@ -30,12 +30,26 @@ function PostPage() {
   const router = useRouter();
   const { id } = router.query;
 
+  // Fetch posts
   useEffect(
     () =>
       onSnapshot(doc(db, "posts", id), (snapshot) => {
         setPost(snapshot.data());
       }),
     [db]
+  );
+
+  // Fetch and query comments on descending order
+  useEffect(
+    () =>
+      onSnapshot(
+        query(
+          collection(db, "posts", id, "comments"),
+          orderBy("timestamp", "desc")
+        ),
+        (snapshot) => setComments(snapshot.docs)
+      ),
+    [db, id]
   );
 
   if (!session) return <Login providers={providers} />;
@@ -83,7 +97,6 @@ function PostPage() {
     </div>
   );
 }
-
 export default PostPage;
 
 export async function getServerSideProps(context) {
