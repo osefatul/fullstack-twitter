@@ -174,7 +174,7 @@ function Post({ id, post, postPage }) {
 
           {/* DELETE ICON */}
           {/* Check if the owner of the post is someone who logged in. */}
-          {session.user.uid === post?.id ? (
+          {session?.user?.uid === post?.id ? (
             <div
               className="flex items-center space-x-1 group"
               onClick={(e) => {
