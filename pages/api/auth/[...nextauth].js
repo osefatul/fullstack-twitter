@@ -35,5 +35,10 @@ export default NextAuth({
   },
 
   // Add secret JWT in order to deploy it on vercel.
-  secret: process.env.JWT_SECRET,
+  jwt: {
+    encryption: true,
+    secret: process.env.JWT_SECRET,
+    signingKey: process.env.JWT_SIGNING_KEY,
+    encryptionKey: process.env.JWT_ENCRYPTION_KEY,
+  },
 });
