@@ -34,3 +34,11 @@ We have used Recoil for state management instead of redux in this project.
 
 We Used Headless UI for our comment modal.
 [update..]I removed headless UI and designed myslef a modal that was appropriate for our project.
+
+### Vercel deployment
+
+    1- connect your github with vercel and import github depository.
+    2- Add environment variables.
+    3- Deploy.
+    4- Change NextAuth_URL value to the deployed domain.
+    5- Redeploy.
