@@ -39,7 +39,7 @@ function Post({ id, post, postPage }) {
   const router = useRouter();
   console.log("post", post);
 
-  //Fetch comments
+  //Fetch comments with query which is fetching items based on descending time order.
   useEffect(
     () =>
       onSnapshot(

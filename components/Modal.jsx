@@ -41,6 +41,7 @@ function Modal() {
   const sendComment = async (e) => {
     e.preventDefault();
 
+    // Create a post, if not existed otherwise add posts to the doc.
     await addDoc(collection(db, "posts", postId, "comments"), {
       comment: comment,
       username: session.user.name,
