@@ -34,6 +34,6 @@ export default NextAuth({
     },
   },
 
-  // Add secret JWT in order to deploy it on vercel.
+  // Add secret JWT in order to deploy it on vercel. The JWT_SECRET is just a random number. We generated that number with openssl cmd -> rand -base64 64
   secret: process.env.JWT_SECRET,
 });

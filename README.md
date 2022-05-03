@@ -38,7 +38,12 @@ We Used Headless UI for our comment modal.
 ### Vercel deployment
 
     1- connect your github with vercel and import github depository.
-    2- Add environment variables.
+    2- Add environment variables:
+        a. GOOGLE_ID
+        b. GOOGLE_SECRET
+        C. NEXTAUTH_URL
+        D. JWT_SECRET -> this has been generated with openssl
     3- Deploy.
     4- Change NextAuth_URL value to the deployed domain.
     5- Redeploy.
+    6- Go to Google API and add the Domain and deployed urls.
