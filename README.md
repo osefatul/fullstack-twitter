@@ -1,10 +1,10 @@
 # Twitter Full-Stack Clone
 
-This is a fullstack (frontend with nextjs and backend with firebase) designed for a eudcational purpose. We have use different technologies for this application such as nextjs, tailwind.css, firebase, recoil, next-auth, react-moment and etc. This web application has been deployed using [vercel](https://vercel.com/osefatul).
-
 ## Web Application
 
 Please click [here](https://fullstack-twitter-5tg5gc4lh-osefatul.vercel.app/) to overview our web application.
+
+This is a fullstack (frontend with nextjs and backend with firebase) designed for a eudcational purpose. We have use different technologies for this application such as nextjs, tailwind.css, firebase, recoil, next-auth, react-moment and etc. This web application has been deployed using [vercel](https://vercel.com/osefatul).
 
 #### Using different layers of Tailwind
 
