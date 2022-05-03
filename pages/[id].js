@@ -53,7 +53,9 @@ function PostPage({ trendingResults, followResults, providers }) {
     [db, id]
   );
 
+  //check if session is persistent.
   if (!session) return <Login providers={providers} />;
+
   return (
     <div>
       <Head>

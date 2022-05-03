@@ -18,11 +18,17 @@ This is a fullstack (frontend with nextjs and backend with firebase) designed fo
 ### NextAuth.js
 
 - [Installed library](https://next-auth.js.org/getting-started/upgrade-v4).
-
 - Got an error while showing providers in the login page. getProvider wouldn't show the providers details. found the issue in the [github](https://stackoverflow.com/questions/70050759/trying-to-configure-next-auth-signin-page-but-having-a-problem-with-getprovider). In the env.local file the NEXT_AUTH must be started with http not https.
-
 - To Enable google API authentication. go to
   [Google Cloud Platform -> APIs & Services -> Credentials](https://console.cloud.google.com/apis/credentials?project=twitter-d0844) and then add "http://localhost:3000/api/auth/callback/google" to the web Application as the Authorized redirect URLs, and "http://localhost:3000" as the authorized javascript URL.
+
+#### How does it work?
+
+- First add providers in to NextAuth component.
+- Add session as a callback function, which means once someone sign in, session will be called afterwards to pass user to frontend/client side of the application.
+- In the \_app.js file wrap the application with sessionProvider and session the callback function as the props of that layer.
+- Call session in the serverside rendering function in the home page.
+- So, now, whenever an application is open it will check session, if there is session then the google provider will be called. Once user provide their credentials then session will let user get in to client side of the webpage.
 
 ### Recoil
 
